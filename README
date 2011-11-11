@@ -1,0 +1,4 @@
+jni folder - C sources of SQLite and ICU patch, C source code files to provide access from Java using JNI.
+libs - builded from C sources .so library.
+src - java source to provide access to C code using JNI, and work with database with Java.
+jars - builder SqliteIcu.jar file.
