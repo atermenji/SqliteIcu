@@ -1,0 +1,153 @@
+#include <jni.h>
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+#include <android/log.h>
+#include "sqlite3.h"
+
+static jclass stopClass;
+
+static jfieldID routeIdField = 0;
+static jfieldID routeStopsField;
+static jfieldID routePointsXField;
+static jfieldID routePointsYField;
+
+static jmethodID getStopByIdMethod;
+
+static void preloadFields(JNIEnv* env) {
+	//if (routeIdField == 0) {
+		stopClass  = (*env)->FindClass(env, "ru/yarmap/android/Controllers/ywf_stop");
+
+		jclass pathFindingClass  = (*env)->FindClass(env, "ru/yarmap/android/Controllers/PathFinding");
+
+		getStopByIdMethod = (*env)->GetMethodID(env, pathFindingClass, "getStopById", "(I)Lru/yarmap/android/Controllers/ywf_stop;");
+
+		jclass routeClass  = (*env)->FindClass(env, "ru/yarmap/android/Controllers/ywf_route");
+
+		routeIdField = (*env)->GetFieldID(env, routeClass, "id", "I");
+		routeStopsField = (*env)->GetFieldID(env, routeClass, "stops", "[Lru/yarmap/android/Controllers/ywf_stop;");
+		routePointsXField = (*env)->GetFieldID(env, routeClass, "pointsX", "[F");
+		routePointsYField = (*env)->GetFieldID(env, routeClass, "pointsY", "[F");
+	//}
+}
+
+const char* strchrnul(const char* s, char c) {
+	while (*s != 0 && *s != c) {
+		s++;
+	}
+
+	return s;
+}
+
+void  Java_ru_yarmap_android_Controllers_PathFinding_loadRouteFromCursor(JNIEnv* env, jobject this, int stmtHandle, jobject route) {
+	preloadFields(env);
+	sqlite3_stmt* stmt = (sqlite3_stmt*)stmtHandle;
+
+	int id = sqlite3_column_int(stmt, 0);
+	(*env)->SetIntField(env, route, routeIdField, id);
+
+	const char* buf = sqlite3_column_text(stmt, 1);
+	if (0 == buf) {
+		return ;
+	}
+
+	int len = strlen(buf);
+	if (0 == len) {
+		return;
+	}
+
+	int stopCount = len > 0 ? 1 : 0;
+
+	int i = 0;
+	for (;i < len; i++) {
+		if (buf[i] == ',') {
+			stopCount ++;
+		}
+	}
+
+	//__android_log_print(ANDROID_LOG_DEBUG, "yarmap-path", "%d  len = %d stop_count = %d", id, len, stopCount);
+
+	jobjectArray stopArray = (*env)->NewObjectArray(env, stopCount, stopClass, 0);
+	if (0 == stopArray) {
+		return;
+	}
+
+	(*env)->SetObjectField(env, route, routeStopsField, stopArray);
+
+	const char* startPos = buf;
+	char* endPos;
+	char lastChar;
+	i = 0;
+	do {
+		endPos = (char*)strchrnul(startPos, ',');
+		lastChar = *endPos;
+		*endPos = 0;
+
+		//__android_log_print(ANDROID_LOG_DEBUG, "yarmap-path", "startPos = %d endPos = %d", startPos, endPos);
+		int stopId = atoi(startPos);
+
+		jobject stopObject = (*env)->CallObjectMethod(env, this, getStopByIdMethod, stopId);
+
+		(*env)->SetObjectArrayElement(env, stopArray, i++, stopObject);
+
+		startPos = endPos + 1;
+	} while(lastChar);
+
+	buf = sqlite3_column_text(stmt, 2);
+	if ( !buf ) {
+		return;
+	}
+	len = strlen(buf);
+	int pointCount = len == 0 ? 0 : 1;
+	i = 0;
+	for (;i < len; i++) {
+		if (buf[i] == ',') {
+			pointCount ++;
+		}
+	}
+
+
+	{
+		float xarr[pointCount];
+		float yarr[pointCount];
+
+		//__android_log_print(ANDROID_LOG_DEBUG, "yarmap-path", "%d 2: %s", id, buf);
+
+		i = 0;
+		startPos = buf;
+		do {
+			endPos = (char*)strchrnul(startPos, ',');
+			lastChar = *endPos;
+			*endPos = 0;
+
+			char* delimiter = strchr(startPos, ' ');
+
+			//__android_log_print(ANDROID_LOG_DEBUG, "yarmap-path", "%s, delimiter = %d", startPos, delimiter);
+
+			*delimiter = 0;
+			float x = atof(startPos);
+			float y = atof(delimiter + 1);
+
+			xarr[i] = x;
+			yarr[i] = y;
+
+			startPos = endPos + 1;
+			i++;
+		} while(lastChar);
+
+		jfloatArray xArray = (*env)->NewFloatArray(env, pointCount);
+		if (!xArray) {
+			return;
+		}
+		jfloatArray yArray = (*env)->NewFloatArray(env, pointCount);
+		if (!xArray) {
+			return;
+		}
+
+		(*env)->SetFloatArrayRegion(env, xArray, 0, pointCount, xarr);
+		(*env)->SetFloatArrayRegion(env, yArray, 0, pointCount, yarr);
+
+		(*env)->SetObjectField(env, route, routePointsXField, xArray);
+		(*env)->SetObjectField(env, route, routePointsYField, yArray);
+	}
+}

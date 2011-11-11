@@ -1,0 +1,644 @@
+#include <jni.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+#include <android/log.h>
+#include "sqlite3.h"
+
+#include "ru_yarmap_android_sqlite.h"
+
+void throw_exception(JNIEnv* env) {
+	jclass exClass = (*env)->FindClass(env, "java/lang/Exception");
+
+	(*env)->ThrowNew(env, exClass, "");
+}
+
+typedef struct Vec2_s
+{
+	float x;
+	float y;
+} Vec2;
+
+#define SEARCH_STATE_NOT_VISITED 0
+#define SEARCH_STATE_OPEN 1
+#define SEARCH_STATE_CLOSED 2
+
+typedef struct edge_graph_s
+{
+	int id;
+	float cost;
+	char napr;
+	Vec2 centr;
+
+	int neighbor_count;
+	int* neighbor_id;
+	float* neighbor_cost;
+
+	int vecCoordinatesCount;
+	Vec2* vecCoordinates;
+
+	char searchState;
+	float fullCost;
+	struct edge_graph_s* prev;
+	struct edge_graph_s* next;
+
+	struct edge_graph_s* nextForPath;
+} edge_graph;
+
+
+static jmethodID addPointMethod;
+
+static int maxEdgeID;
+static edge_graph* graph = 0;
+static int e_max_id;
+static int countOpen;
+
+static int closedEdges;
+static Vec2 prevPrevPoint;
+static Vec2 prevPoint;
+static int foundedPointCount;
+
+void clearResult() {
+	if (graph) {
+		int i = 0;
+		for (i = 0; i < maxEdgeID; i++) {
+			graph[i].searchState = SEARCH_STATE_NOT_VISITED;
+			graph[i].prev = 0;
+			graph[i].next = 0;
+			graph[i].nextForPath = 0;
+		}
+	}
+
+	closedEdges = 0;
+	foundedPointCount = 0;
+}
+
+float qlenght(Vec2* p1, Vec2* p2)
+{
+	float deltax = p1->x - p2->x;
+	float deltay = p1->y - p2->y;
+	return deltax * deltax + deltay * deltay;
+}
+
+float lenght(Vec2* p1, Vec2* p2)
+{
+	float deltax = p1->x - p2->x;
+	float deltay = p1->y - p2->y;
+	return sqrtf(deltax * deltax + deltay * deltay);
+}
+
+char pprojectionSegment(Vec2* p11, Vec2* p12, Vec2* p3, Vec2* p_res)
+{
+	float x1 = p12->x - p11->x;
+	float y1 = p12->y - p11->y;
+	float x2 = p3->x - p11->x;
+	float y2 = p3->y - p11->y;
+
+	p_res->x = p11->x;
+	p_res->y = p11->y;
+
+	float lx1 = sqrtf(x1 * x1 + y1 * y1);
+	if(!lx1)
+		return 1;
+	float nx1 = x1 / lx1, ny1 = y1 / lx1;
+	p_res->x = (nx1 * x2 + ny1 * y2) * nx1 + p11->x;
+	p_res->y = (nx1 * x2 + ny1 * y2) * ny1 + p11->y;
+	if(p12->x - p11->x)
+		lx1 = (p_res->x - p11->x) / (p12->	x - p11->x);
+	else
+		lx1 = (p_res->y - p11->y) / (p12->y - p11->y);
+	if (lx1 >= 0 && lx1 <= 1)
+		return 1;
+	return 0;
+}
+
+void prepareFields(JNIEnv* env) {
+	jclass class  = (*env)->FindClass(env, "ru/yarmap/android/search/RouteListener");
+
+	addPointMethod = (*env)->GetMethodID(env, class, "addPoint", "(FF)V");
+}
+
+float completeRoute(JNIEnv* env, jobject pointList, Vec2* startPoint, Vec2* endPoint) {
+	return 0;
+}
+
+float routeEnded(JNIEnv* env, jobject pointList, Vec2* startPoint, Vec2* endPoint) {
+	if (foundedPointCount == 1) {
+
+		(*env)->CallVoidMethod(env, pointList, addPointMethod, prevPoint.x, prevPoint.y);
+
+	} else if (foundedPointCount > 1) {
+		Vec2 v;
+		char projectionFound = pprojectionSegment(&prevPrevPoint, &prevPoint, endPoint, &v);
+
+		//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "end route found? %d. prevPrev = (%f, %f), prev = (%f, %f), end = (%f, %f)",
+		//		projectionFound, prevPrevPoint.x, prevPrevPoint.y, prevPoint.x, prevPoint.y, endPoint->x, endPoint->y);
+
+		if (!projectionFound) {
+			v.x = prevPoint.x;
+			v.y = prevPoint.y;
+		}
+
+		(*env)->CallVoidMethod(env, pointList, addPointMethod, v.x, v.y);
+
+		return lenght(&prevPrevPoint, &v);
+	}
+
+	return 0.0f;
+}
+
+float pointFound(JNIEnv* env, jobject pointList, Vec2* startPoint, Vec2* endPoint, float x, float y) {
+	float len = 0.0f;
+
+	if (foundedPointCount == 1) {
+		Vec2 v, projResult;
+		v.x = x;
+		v.y = y;
+		char projectionFound = pprojectionSegment(&v, &prevPoint, startPoint, &projResult);
+
+		if (projectionFound) {
+			prevPoint.x = projResult.x;
+			prevPoint.y = projResult.y;
+		}
+
+		(*env)->CallVoidMethod(env, pointList, addPointMethod, prevPoint.x, prevPoint.y);
+
+	} else if (foundedPointCount > 1) {
+		Vec2 v;
+		v.x = x;
+		v.y = y;
+		float thisLen = lenght(&prevPoint, &v);
+
+		if (thisLen < 0.01f) {
+			return 0.0f;//skip point
+		}
+
+		(*env)->CallVoidMethod(env, pointList, addPointMethod, prevPoint.x, prevPoint.y);
+		len = lenght(&prevPrevPoint, &prevPoint);
+	}
+
+	prevPrevPoint.x = prevPoint.x;
+	prevPrevPoint.y = prevPoint.y;
+
+	prevPoint.x = x;
+	prevPoint.y = y;
+	foundedPointCount++;
+
+	return len;
+}
+
+void getBest(Vec2* sp, Vec2* ep, edge_graph **ss, edge_graph** es)
+{
+	float len_s=-1, len_e=-1;
+	int j, i_count;
+
+	Vec2 *p1, *p2;
+	Vec2 p3;
+	edge_graph* startEdge = 0;
+	edge_graph* endEdge = 0;
+
+	edge_graph *n = graph;
+	while(!n->id || n->napr)
+	{
+		if (n->id) {
+			float buf = lenght(sp, &n->centr);
+			//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "trying edge for start length = %f center.x = %f center.y = %f", buf, sp->x, sp->y);
+			if(len_s < 0 || len_s > buf)
+			{
+				startEdge = n;
+				len_s = buf;
+			}
+			buf = lenght(ep, &n->centr);
+			if (len_e < 0 || len_e > buf)
+			{
+				endEdge = n;
+				len_e = buf;
+			}
+		}
+
+		n++;
+	}
+
+	if(startEdge == endEdge)
+		return;
+
+	if (startEdge && startEdge->id + e_max_id <= maxEdgeID) {
+		if ( graph[startEdge->id + e_max_id].id != 0 ) {
+			Vec2* first = startEdge->vecCoordinates;
+
+			float lengthToFirst = lenght(first, ep);
+			float lengthToLast = lenght(first + startEdge->vecCoordinatesCount - 1, ep);
+
+			if(lengthToFirst < lengthToLast) {
+				startEdge = graph + startEdge->id + e_max_id;
+			}
+		}
+	}
+
+	if (endEdge && endEdge->id + e_max_id <= maxEdgeID) {
+		if ( graph[endEdge->id + e_max_id].id != 0 ) {
+			Vec2* first = endEdge->vecCoordinates;
+
+			float lengthToFirst = lenght(first, sp);
+			float lengthToLast = lenght(first + endEdge->vecCoordinatesCount - 1, sp);
+
+			if(lengthToFirst < lengthToLast) {
+				endEdge = graph + endEdge->id + e_max_id;
+			}
+		}
+	}
+
+	*ss = startEdge;
+	*es = endEdge;
+}
+
+edge_graph* findOpenEdgeBefore(edge_graph* start, edge_graph* target) {
+	while (start->next && start->next < target) {
+		start = start->next;
+	}
+
+	return start;
+}
+
+edge_graph* findOpenEdgeTargetThis(edge_graph* start, edge_graph* target) {
+	if (start == target) {
+		return NULL;
+	}
+
+	while (start->next != target) {
+		start = start->next;
+	}
+
+	return start;
+}
+
+int openCount(edge_graph* start) {
+	int i = 0;
+	while(start) {
+		i++;
+		start = start->next;
+	}
+
+	return i;
+}
+
+float searchPut(JNIEnv* env, jobject pointList, Vec2* start, Vec2* end)
+{
+	clearResult();
+
+	edge_graph* ns = 0;
+	edge_graph* ne = 0;
+	getBest(start, end, &ns, &ne);
+	if (!ns || !ne)
+		return -1.0f;
+
+	if(ns == ne)
+	{
+		if (ns->id + e_max_id <= maxEdgeID) {
+			if (graph[ns->id + e_max_id].id != 0) {
+				float startDiff = lenght(start, ns->vecCoordinates);
+				float endDiff = lenght(end, ns->vecCoordinates);
+
+				if (startDiff <= endDiff) {
+					float len = 0;
+					Vec2* i = ns->vecCoordinates + ns->vecCoordinatesCount - 1;
+					while(i != ns->vecCoordinates) {
+						len += pointFound(env, pointList, start, end, i->x, i->y);
+
+						i--;
+					}
+
+					return len + routeEnded(env, pointList, start, end);
+				}
+			}
+		}
+
+		float len = 0;
+		Vec2* i = ns->vecCoordinates;
+		Vec2* end = ns->vecCoordinates + ns->vecCoordinatesCount;
+		while(i != end) {
+			len += pointFound(env, pointList, start, end, i->x, i->y);
+
+			i++;
+		}
+
+		return len + routeEnded(env, pointList, start, end);
+	}
+
+	ns->fullCost = ns->cost;
+	ns->prev = 0;
+	ns->searchState = SEARCH_STATE_OPEN;
+	ns->next = 0;
+
+	edge_graph* firstOpenEdge = ns;
+	char searchComplete = 0;
+	while (!searchComplete) {
+		searchComplete = 1;
+		edge_graph* stepEdge = 0;
+		float minCost = 999999999;
+
+		//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "step. open count = %d", openCount(firstOpenEdge));
+
+		edge_graph* edge = firstOpenEdge;
+		while (edge) {
+			float h = lenght(edge->vecCoordinates + edge->vecCoordinatesCount - 1, end) / 60.0f;
+
+			if (searchComplete || edge->fullCost + h < minCost) {
+				stepEdge = edge;
+				minCost = edge->fullCost + h;
+			}
+
+			searchComplete = 0;
+			edge = edge->next;
+		}
+
+		if (stepEdge) {
+			closedEdges++;
+			//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "open neighbors for %d. fullcost = %f, micCost = %f", stepEdge->id, stepEdge->fullCost, minCost);
+		
+			stepEdge->searchState = SEARCH_STATE_CLOSED;
+
+			edge_graph* prevOpenEdge = findOpenEdgeTargetThis(firstOpenEdge, stepEdge);
+			if (prevOpenEdge) {
+				prevOpenEdge->next = stepEdge->next;
+			} else {
+				//stepEdge is first open
+				firstOpenEdge = stepEdge->next;
+			}
+
+			edge_graph* lastOpenEdge = firstOpenEdge;
+
+			int i = 0;
+			for (i = 0; i < stepEdge->neighbor_count; i++) {
+				int neighborId = stepEdge->neighbor_id[i];
+				edge_graph* neighbor = graph + neighborId;
+
+				if (SEARCH_STATE_NOT_VISITED == neighbor->searchState) {
+					neighbor->searchState = SEARCH_STATE_OPEN;
+					neighbor->prev = stepEdge;
+					neighbor->fullCost = stepEdge->fullCost + neighbor->cost;
+					if (neighbor == ne) {
+						searchComplete = 1;
+					}
+
+					if (lastOpenEdge != NULL && neighbor > lastOpenEdge) {
+						edge_graph* prev = findOpenEdgeBefore(lastOpenEdge, neighbor);
+						edge_graph* next = prev->next;
+						prev->next = neighbor;
+						neighbor->next = next;
+					} else {
+						neighbor->next = lastOpenEdge;
+						lastOpenEdge = firstOpenEdge = neighbor;
+					}
+				} else {
+					if (neighbor->fullCost > stepEdge->fullCost + neighbor->cost) {
+						//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "change prev for %d from %d to %d", neighbor->id, neighbor->prev->id, stepEdge->id);
+					
+						neighbor->prev = stepEdge;
+						neighbor->fullCost = stepEdge->fullCost + neighbor->cost;
+					}
+				}
+			}
+		}
+	}
+
+	//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "search complete. closed %d edges", closedEdges);
+	ns->next = 0;
+
+	edge_graph* edge = ne;
+	while (edge) {
+		if (edge->prev) {
+			edge->prev->nextForPath = edge;
+		}
+
+		edge = edge->prev;
+	}
+
+	float len = 0;
+	edge = ns;
+	while (edge) {
+		int mirrorID = edge->id < e_max_id ? edge->id + e_max_id : edge->id - e_max_id;
+		//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "edge->id = %d mirror = %d, vertCount = %d", edge->id, mirrorID, edge->vecCoordinatesCount);
+		Vec2* i = edge->vecCoordinates;
+		Vec2* end = edge->vecCoordinates + edge->vecCoordinatesCount;
+
+		while(i != end) {
+			//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "len = %f, x = %f y = %f", len, i->x, i->y);
+			len += pointFound(env, pointList, start, end, i->x, i->y);
+
+			i++;
+		}
+
+		edge = edge->nextForPath;
+	}
+
+	return len + routeEnded(env, pointList, start, end);;
+}
+
+jfloat Java_ru_yarmap_android_search_CarPathFinding_trySearch(JNIEnv* env, jclass this, jobject pointList, jfloat startx, jfloat starty, jfloat endx, jfloat endy)
+{
+	Vec2 start;
+	Vec2 end;
+
+	clearResult();
+
+	start.x = startx;
+	start.y = starty;
+	end.x = endx;
+	end.y = endy;
+
+	return searchPut(env, pointList, &start, &end);
+}
+
+int getEdgeMaxID(JNIEnv* env, sqlite3 * dbHandle)
+{
+	const char *query = "SELECT max(id) FROM dv_graph ORDER BY id";
+	sqlite3_stmt *stmt;
+	int errcode;
+
+	if ((errcode = sqlite3_prepare(dbHandle, query, strlen(query), &stmt, NULL)) == SQLITE_OK)
+	{
+		if ((errcode = sqlite3_step(stmt)) == SQLITE_ROW)
+		{
+			return sqlite3_column_int(stmt, 0);
+		}
+	}
+
+	throw_sqlite3_exception(env, dbHandle, errcode);
+
+	return -1;
+}
+
+int intCompare(const void* p1, const void* p2) {
+	const int* a = (const int*)p1;
+	const int* b = (const int*)p2;
+	return *a - *b;
+}
+
+jint Java_ru_yarmap_android_search_CarPathFinding_loadEdges(JNIEnv* env, jclass this, int sqliteHandle)
+{
+	prepareFields(env);
+	if (addPointMethod == NULL){
+		return;
+	}
+
+	if (graph != NULL) {
+		int i = 0;
+		for (; i < maxEdgeID; i++) {
+			edge_graph* edge = graph + i;
+			if (edge->id) {
+				if (edge->neighbor_cost != NULL) {
+					free(edge->neighbor_cost);
+					edge->neighbor_cost = NULL;
+				}
+
+				free(edge->neighbor_id);
+				edge->neighbor_id = NULL;
+
+				free(edge->vecCoordinates);
+				edge->vecCoordinates = NULL;
+			}
+		}
+
+		graph = NULL;
+		maxEdgeID = 0;
+	}
+
+	sqlite3* dbHandle = (sqlite3*)sqliteHandle;
+
+	int maxId = getEdgeMaxID(env, dbHandle);
+	if (maxId == -1) {
+		return 1;
+	}
+
+	maxEdgeID = maxId;
+
+	graph = malloc(sizeof(edge_graph) * maxId);
+	if (0 == graph) {
+		throw_exception(env);
+		return 1;
+	}
+
+	memset(graph, 0, sizeof(edge_graph) * maxId);
+
+	const char *query = "SELECT id, cost, direct, id_neighbors, cost_neighbors, c_x, c_y, str_the_geom FROM dv_graph ORDER BY id";
+	sqlite3_stmt *stmt;
+	int errcode;
+
+	if ((errcode = sqlite3_prepare(dbHandle, query, strlen(query), &stmt, NULL)) == SQLITE_OK)
+	{
+		int edgeIndex = 0;
+		while(sqlite3_step(stmt) == SQLITE_ROW)
+		{
+			int id = sqlite3_column_int(stmt, 0);
+
+			edge_graph *edge = graph + id;
+
+			edge->id = id;
+			edge->cost = (float)sqlite3_column_double(stmt, 1);
+			edge->napr = (char)sqlite3_column_int(stmt, 2);
+			edge->centr.x = (float)sqlite3_column_double(stmt, 5);
+			edge->centr.y = (float)sqlite3_column_double(stmt, 6);
+			edge->neighbor_cost = 0;
+			edge->neighbor_count = -1;
+
+			const char *buf = sqlite3_column_text(stmt, 3);
+			if(buf)
+			{
+				int len = strlen(buf);
+				int neighbor_count = 1;
+				int j = 0;
+
+				for(j = 0; j < len; j++) {
+					if(buf[j] == ',') {
+						neighbor_count++;
+					}
+				}
+
+				edge->neighbor_id = malloc(sizeof(int) * neighbor_count);
+
+				int i = 0;
+				for(j = 0; j < len; j++)
+				{
+					if(buf[j] != ',' && j != len - 1)
+						continue;
+					char *ptr = (char *)buf;
+					if(j != len - 1)
+						ptr[j] = 0;
+					buf += j + 1;
+					j = -1;
+					len = strlen(buf);
+					edge->neighbor_id[i++] = atoi(ptr);
+				}
+
+				edge->neighbor_count = neighbor_count;
+				qsort(edge->neighbor_id, neighbor_count, sizeof(int), intCompare);
+			}
+
+			buf = sqlite3_column_text(stmt, 7);
+			if(buf)
+			{
+				int len = strlen(buf);
+				int vecCoordinates_count = 1;
+				int j = 0;
+
+				for(j = 0; j < len; j++) {
+					if(buf[j] == ',') {
+						vecCoordinates_count++;
+					}
+				}
+
+				edge->vecCoordinatesCount = vecCoordinates_count;
+				edge->vecCoordinates = malloc(sizeof(Vec2) * vecCoordinates_count);
+
+				//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "edge.id = %d vec count = %d", edge->id, edge->vecCoordinatesCount);
+
+				int i = 0;
+				for(j = 0; j < len; j++)
+				{
+					if(buf[j] != ',' && j != len - 1)
+						continue;
+					char *ptr = (char *)buf;
+					if(j != len - 1)
+						ptr[j] = 0;
+					buf += j + 1;
+					j = -1;
+					len = strlen(buf);
+					int len2 = strlen(ptr);
+					int q =  0;
+					for(q = 0; q < len2; q++)
+					{
+						if(ptr[q] != ' ')
+							continue;
+						char *arg = ptr;
+						Vec2* p = edge->vecCoordinates + (i++);
+						arg[q] = 0;
+						ptr += q + 1;
+
+						p->x = atof(arg);
+						p->y = atof(ptr);
+
+						//__android_log_print(ANDROID_LOG_INFO, "yarmap-path", "edge.id = %d vec[%d].x = %f vec[%d].y = %f", edge->id, i - 1, p->x, i - 1, p->y);
+
+						break;
+					}
+				}
+			}
+
+			if (edge->napr && edge->id >= e_max_id) {
+				e_max_id = edge->id + 1;
+			}
+
+			countOpen++;
+		}
+
+		sqlite3_finalize(stmt);
+
+		return maxId;
+	}
+
+	throw_sqlite3_exception(env, dbHandle, errcode);
+
+	return errcode;
+}
+

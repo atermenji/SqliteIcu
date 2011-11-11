@@ -1,0 +1,893 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode
+END
+uscript.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uscript.h
+END
+uconfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uconfig.h
+END
+unifunct.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unifunct.h
+END
+ucat.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucat.h
+END
+putil.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/putil.h
+END
+coleitr.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/coleitr.h
+END
+uldnames.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uldnames.h
+END
+unifilt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unifilt.h
+END
+docmain.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/docmain.h
+END
+urep.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/urep.h
+END
+utrans.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utrans.h
+END
+utmscale.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utmscale.h
+END
+unirepl.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unirepl.h
+END
+bytestream.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/bytestream.h
+END
+uobslete.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uobslete.h
+END
+datefmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/datefmt.h
+END
+ucoleitr.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucoleitr.h
+END
+dtitvinf.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dtitvinf.h
+END
+icudataver.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/icudataver.h
+END
+urename.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/urename.h
+END
+measfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/measfmt.h
+END
+utf.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utf.h
+END
+sortkey.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/sortkey.h
+END
+utf16.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utf16.h
+END
+plurrule.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/plurrule.h
+END
+uspoof.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uspoof.h
+END
+stsearch.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/stsearch.h
+END
+stringpiece.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/stringpiece.h
+END
+rbbi.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/rbbi.h
+END
+ucnv_cb.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucnv_cb.h
+END
+locdspnm.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/locdspnm.h
+END
+bms.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/bms.h
+END
+ucnv_err.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucnv_err.h
+END
+colldata.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/colldata.h
+END
+ptypes.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ptypes.h
+END
+udraft.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/udraft.h
+END
+ushape.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ushape.h
+END
+utf8.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utf8.h
+END
+ucsdet.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucsdet.h
+END
+uiter.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uiter.h
+END
+localpointer.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/localpointer.h
+END
+uintrnal.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uintrnal.h
+END
+parsepos.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/parsepos.h
+END
+uregex.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uregex.h
+END
+uidna.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uidna.h
+END
+ucol.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucol.h
+END
+brkiter.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/brkiter.h
+END
+uclean.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uclean.h
+END
+icuplug.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/icuplug.h
+END
+utext.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utext.h
+END
+rbtz.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/rbtz.h
+END
+unorm2.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unorm2.h
+END
+gregocal.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/gregocal.h
+END
+utrace.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utrace.h
+END
+unum.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unum.h
+END
+errorcode.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/errorcode.h
+END
+umachine.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/umachine.h
+END
+usearch.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/usearch.h
+END
+tmutamt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/tmutamt.h
+END
+ulocdata.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ulocdata.h
+END
+ucasemap.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucasemap.h
+END
+dbbi.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dbbi.h
+END
+chariter.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/chariter.h
+END
+normlzr.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/normlzr.h
+END
+regex.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/regex.h
+END
+ucnv.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucnv.h
+END
+ppalmos.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ppalmos.h
+END
+usprep.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/usprep.h
+END
+tzrule.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/tzrule.h
+END
+vtzone.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/vtzone.h
+END
+rep.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/rep.h
+END
+format.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/format.h
+END
+decimfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/decimfmt.h
+END
+uenum.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uenum.h
+END
+udat.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/udat.h
+END
+smpdtfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/smpdtfmt.h
+END
+basictz.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/basictz.h
+END
+unorm.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unorm.h
+END
+uloc.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uloc.h
+END
+simpletz.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/simpletz.h
+END
+umsg.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/umsg.h
+END
+ucnvsel.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucnvsel.h
+END
+std_string.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/std_string.h
+END
+uset.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uset.h
+END
+parseerr.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/parseerr.h
+END
+schriter.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/schriter.h
+END
+udatpg.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/udatpg.h
+END
+caniter.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/caniter.h
+END
+currpinf.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/currpinf.h
+END
+utypes.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utypes.h
+END
+timezone.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/timezone.h
+END
+dtintrv.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dtintrv.h
+END
+locid.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/locid.h
+END
+selfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/selfmt.h
+END
+ubidi.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ubidi.h
+END
+choicfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/choicfmt.h
+END
+utf_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utf_old.h
+END
+strenum.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/strenum.h
+END
+ubrk.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ubrk.h
+END
+fieldpos.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/fieldpos.h
+END
+unimatch.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unimatch.h
+END
+umisc.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/umisc.h
+END
+tmunit.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/tmunit.h
+END
+plurfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/plurfmt.h
+END
+uobject.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uobject.h
+END
+ustring.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ustring.h
+END
+msgfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/msgfmt.h
+END
+numsys.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/numsys.h
+END
+dtitvfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dtitvfmt.h
+END
+measure.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/measure.h
+END
+uvernum.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uvernum.h
+END
+normalizer2.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/normalizer2.h
+END
+usetiter.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/usetiter.h
+END
+uniset.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uniset.h
+END
+calendar.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/calendar.h
+END
+usystem.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/usystem.h
+END
+uversion.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uversion.h
+END
+curramt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/curramt.h
+END
+ures.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ures.h
+END
+symtable.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/symtable.h
+END
+dtptngen.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dtptngen.h
+END
+platform.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/platform.h
+END
+uchriter.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uchriter.h
+END
+dcfmtsym.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dcfmtsym.h
+END
+coll.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/coll.h
+END
+tblcoll.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/tblcoll.h
+END
+fpositer.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/fpositer.h
+END
+udata.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/udata.h
+END
+dtrule.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dtrule.h
+END
+ucurr.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucurr.h
+END
+translit.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/translit.h
+END
+tmutfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/tmutfmt.h
+END
+uchar.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/uchar.h
+END
+resbund.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/resbund.h
+END
+utf32.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/utf32.h
+END
+tztrans.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/tztrans.h
+END
+search.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/search.h
+END
+numfmt.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/numfmt.h
+END
+dtfmtsym.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/dtfmtsym.h
+END
+udeprctd.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/udeprctd.h
+END
+fmtable.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/fmtable.h
+END
+currunit.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/currunit.h
+END
+pwin32.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/pwin32.h
+END
+unistr.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/unistr.h
+END
+ucal.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/ucal.h
+END
+bmsearch.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/bmsearch.h
+END
+measunit.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/measunit.h
+END
+rbnf.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/2kb_yarmapandroid/!svn/ver/1/source/jni/common/unicode/rbnf.h
+END

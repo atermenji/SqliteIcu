@@ -1,0 +1,95 @@
+#include <jni.h>
+#include "sqlite3.h"
+#include <unistd.h>
+
+#include "ru_yarmap_android_sqlite.h"
+
+int Java_ru_yarmap_android_sqlite_SQLiteCursor_step(JNIEnv* env, jobject object, int statementHandle) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	int errcode = 0 ;
+
+        errcode = sqlite3_step(handle);
+		if (errcode==SQLITE_ROW) 
+		{
+			return 0;
+		}else if(errcode == SQLITE_DONE)
+		{
+			return 1;
+		} 
+		else if(errcode == SQLITE_BUSY)
+		{
+			return -1;
+		}
+
+
+	throw_sqlite3_exception(env, sqlite3_db_handle(handle), errcode);
+}
+int Java_ru_yarmap_android_sqlite_SQLiteCursor_columnType(JNIEnv* env, jobject object, int statementHandle, int columnIndex) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	return sqlite3_column_type(handle, columnIndex);
+}
+
+int Java_ru_yarmap_android_sqlite_SQLiteCursor_columnIsNull(JNIEnv* env, jobject object, int statementHandle, int columnIndex) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	int valType = sqlite3_column_type(handle, columnIndex);
+
+	return SQLITE_NULL == valType;
+}
+
+int Java_ru_yarmap_android_sqlite_SQLiteCursor_columnIntValue(JNIEnv* env, jobject object, int statementHandle, int columnIndex) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	int valType = sqlite3_column_type(handle, columnIndex);
+	if (SQLITE_NULL == valType) {
+		return 0;
+	}
+
+	return sqlite3_column_int(handle, columnIndex);
+}
+
+jdouble Java_ru_yarmap_android_sqlite_SQLiteCursor_columnDoubleValue(JNIEnv* env, jobject object, int statementHandle, int columnIndex) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	int valType = sqlite3_column_type(handle, columnIndex);
+	if (SQLITE_NULL == valType) {
+		return 0;
+	}
+
+	return sqlite3_column_double(handle, columnIndex);
+}
+
+jstring Java_ru_yarmap_android_sqlite_SQLiteCursor_columnStringValue(JNIEnv* env, jobject object, int statementHandle, int columnIndex) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	const char* str = sqlite3_column_text(handle, columnIndex);
+	if (str != 0) {
+		return (*env)->NewStringUTF(env, str);
+	}
+
+	return 0;
+}
+
+jobject Java_ru_yarmap_android_sqlite_SQLiteCursor_columnByteBufferValue(JNIEnv* env, jobject object, int statementHandle, int columnIndex) {
+	sqlite3_stmt* handle = (sqlite3_stmt*)statementHandle;
+
+	void *buf = sqlite3_column_blob(handle, columnIndex);
+	int length = sqlite3_column_bytes(handle, columnIndex);
+
+	if (buf != 0 && length > 0 ) {
+		return (*env)->NewDirectByteBuffer(env, buf, length);
+	}
+
+	return 0;
+}
+
+
+/*
+	native int columnIntValue(int statementHandle, int columnIndex);
+	native String columnStringValue(int statementHandle, int columnIndex);
+	native double columnDoubleValue(int statementHandle, int columnIndex);
+	native ByteBuffer columnByteBufferValue(int statementHandle, int columnIndex);
+	native int step(int statementHandle);
+*/
